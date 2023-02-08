@@ -41,6 +41,7 @@ body {
   flex-direction: column;
   width: 400px;
   height: 400px;
+  color: coral;
 }
 
 #timemate {
@@ -74,6 +75,19 @@ input {
   background-color: bisque;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+#Navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: rgb(253, 215, 158);
+}
+
+#NavbarHome {
+  display: flex;
+  align-self: flex-start;
+}
+
 #loginButton:hover {
   background-color: rgb(254, 241, 226);
 }
@@ -177,5 +191,23 @@ input {
   color: coral;
   text-align: center;
   font-size: 50px;
+  font-family: 'Cabin', sans-serif;
+}
+
+.login{
+  margin-bottom: 30px;
+  font-family: 'Cabin', sans-serif;
+  color: coral;
+}
+
+.select {
+  margin-right: 15px;
+  color: coral;
+}
+
+.selectContainer {
+  
+  margin-top: 15px;
+  margin-bottom: 15px;
   font-family: 'Cabin', sans-serif;
 }

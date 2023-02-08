@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect, Fragment } from 'react';
-import ClockIn from './ClockIn.jsx';
-import ClockOut from './ClockOut.jsx';
-import LogOutButton from './logOutButton.jsx';
+import ClockIn from '../Components/ClockIn.jsx';
+import ClockOut from '../Components/ClockOut.jsx';
+import LogOutButton from '../Components/logOutButton.jsx';
 
 const EmployeePage = ({ user, logOut }) => {
   const [currentTime, setCurrentTime] = useState('');
@@ -136,7 +136,5 @@ const EmployeePage = ({ user, logOut }) => {
     </section>
   );
 };
-
-
 
 export default EmployeePage;

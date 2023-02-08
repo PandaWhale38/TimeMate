@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
-import ManagerPage from './ManagerPage.jsx';
-import EmployeePage from './EmployeePage.jsx';
+import ManagerPage from '../Pages/ManagerPage.jsx';
+import EmployeePage from '../Pages/EmployeePage.jsx';
 
-const RoleBased = ({ user,logOut }) => {
+const RoleBased = ({ user, logOut }) => {
   console.log(user);
   return (
     <Fragment>
