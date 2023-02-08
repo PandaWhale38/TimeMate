@@ -10,13 +10,16 @@ const Logins = db.logins;
 //signing a user up
 //hashing users password before its saved to the database with bcrypt
 const createUser = async (req, res, next) => {
+  console.log("i am creating a user");
   try {
-    console.log("i am creating an user")
-    const { first_name, last_name, emp_role, username, password } = req.body;
+    const { first_name, last_name, emp_role, username, password, hourly_wage } = req.body;
     const employeeData = {
       first_name,
       last_name,
       emp_role,
+      hourly_wage,
+      // total_budget,
+      to_do: []
     };
 
     //saving the user
@@ -45,7 +48,7 @@ const createUser = async (req, res, next) => {
       console.log('the user was succesfully created');
       //send users details
 
-      return;
+      return next();
     } else {
       return res.status(409).send('Details are not correct');
     }
@@ -58,6 +61,7 @@ const createUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
+    console.log('trying login');
     // grab username & pw from request body
     const { username, password } = req.body;
     

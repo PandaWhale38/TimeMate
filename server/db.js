@@ -9,7 +9,8 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize(
   // link making connection to databse
-  'postgres://ceysbnlp:8OboVpyfMuX_QI8djNAKa4l2jPempgch@salt.db.elephantsql.com/ceysbnlp',
+  // 'postgres://ceysbnlp:8OboVpyfMuX_QI8djNAKa4l2jPempgch@salt.db.elephantsql.com/ceysbnlp',
+  'postgres://dhtzqjtz:lgTFMPAv7zt2IQXX6Vw2sxEwezL94l-5@batyr.db.elephantsql.com/dhtzqjtz',
   { logging: false }
 );
 const db = {};
@@ -60,18 +61,29 @@ const timesheet = db.timesheet;
 
 // employees.hasMany(logins);
 // logins.belongsTo(employees);
-sequelize.sync(/* { force: true } */);
+
+
+sequelize.sync(/*{ force: true }*/ );
 console.log('All models were synchronized successfully.');
 
+
+
+
+// DB RESET CODE
+// ONLY RUN WHEN RESETTING MODELS
+// running this code creates a new category of worker in Types
+// sequelize.sync({ force: true });
+// types.findOrCreate({
+//   where: { role_id: 1 },
+//   defaults: {
+//     employee_type: 'Manager',
+//   },
+// });
 // types.findOrCreate({
 //   where: { role_id: 2 },
 //   defaults: {
-//     employee_type: 'worker',
+//     employee_type: 'Worker',
 //   },
-// });
-// employees.destroy({
-//   where: {},
-//   truncate: true,
 // });
 
 module.exports = db;
