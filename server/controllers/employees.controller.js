@@ -6,21 +6,34 @@ const config = require('../secretKey.js');
 // Assigning users to the variable User
 const Employees = db.employees;
 const Logins = db.logins;
+const Locations = db.locations;
 
 //signing a user up
 //hashing users password before its saved to the database with bcrypt
 const createUser = async (req, res, next) => {
-  console.log("i am creating a user");
+  console.log('i am creating a user');
   try {
-    const { first_name, last_name, emp_role, username, password, hourly_wage } = req.body;
+    const { first_name, last_name, emp_role, username, password, hourly_wage } =
+      req.body;
     const employeeData = {
       first_name,
       last_name,
       emp_role,
       hourly_wage,
       // total_budget,
-      to_do: []
+      to_do: [],
     };
+
+    // get location id based on location string passed from front end
+    const newEmployeeLocation = await Locations.findOne({
+      where: { location_name: req.body.location },
+    });
+
+    // if no location data passed in, default to location 1
+    employeeData.emp_location = newEmployeeLocation
+      ? newEmployeeLocation.location_id
+      : 1;
+    console.log('emp data  : ', employeeData);
 
     //saving the user
     const user = await Employees.create(employeeData);
@@ -62,9 +75,10 @@ const createUser = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     console.log('trying login');
+    console.log('req.body is: ' + JSON.stringify(req.body));
     // grab username & pw from request body
     const { username, password } = req.body;
-    
+
     // query db with username
     const user = await Logins.findOne({
       where: {
@@ -72,22 +86,20 @@ const login = async (req, res, next) => {
       },
     });
 
-   
-   
     // if no matching username in db return 401
     if (user === null) {
       console.log('incorrect username');
       return res.status(401).send({ error: 'Wrong login credentials' });
     }
-    
+
     // once valid username has been found grab emp associated with login
     const userRole = await Employees.findOne({
       where: {
         emp_id: user.dataValues.user_id,
       },
     });
-    console.log(user.dataValues.username, "just logged in ");
-    
+    console.log(user.dataValues.username, 'just logged in ');
+
     //compare with hashed pw in db
     const isSame = await bcrypt.compare(password, user.password);
 
@@ -124,7 +136,7 @@ const login = async (req, res, next) => {
       });
     }
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return next({
       log: 'This is an error in userController',
       message: {
