@@ -17,7 +17,7 @@ const EmployeeRow = () => {
         return response.json();
       })
       .then((data) => {
-        console.log('data', data)
+        console.log('data', data);
         setEmployees(data[0]);
       })
       .catch((error) => {
@@ -26,8 +26,8 @@ const EmployeeRow = () => {
   }, []);
   console.log(employees[0]);
   return (
-    <div className='justify-self-center'>
-      <table className='table table-borderd text-center justify-self-centered'>
+    <div className="justify-self-center">
+      <table className="table table-borderd text-center justify-self-centered">
         <thead>
           <tr>
             <th>Name</th>

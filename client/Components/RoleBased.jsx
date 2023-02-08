@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
-import ManagerPage from './ManagerPage';
-import EmployeePage from './EmployeePage';
+import ManagerPage from './ManagerPage.jsx';
+import EmployeePage from './EmployeePage.jsx';
 
-const RoleBased = ({ role }) => {
-  console.log(role);
+const RoleBased = ({ user,logOut }) => {
+  console.log(user);
   return (
     <Fragment>
-      {role === 'manager' && <ManagerPage />}
-      {role === 'worker' && <EmployeePage />}
+      {user.role === 'manager' && <ManagerPage user={user} logOut={logOut} />}
+      {user.role === 'worker' && <EmployeePage user={user} logOut={logOut} />}
     </Fragment>
   );
 };

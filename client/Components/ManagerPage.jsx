@@ -3,12 +3,8 @@ import EmployeeRow from './EmployeeRow.jsx';
 import deleteButton from './deleteButton.jsx';
 import LogOutButton from './logOutButton.jsx';
 
-class ManagerPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
+const ManagerPage =({logOut}) => {
+
     return (
       <section id='managerPageOutterBox'>
         <div id='managerTimeMate'>TimeMate</div>
@@ -25,11 +21,11 @@ class ManagerPage extends Component {
         {/* </table> */}
         {/* <deleteButton /> */}
         <section id='managerLogOut'>
-          <LogOutButton logOut={this.props.logOut}/>
+          <LogOutButton logOut={logOut}/>
         </section>
       </section>
     );
-  }
+
 }
 
 export default ManagerPage;
