@@ -2,57 +2,34 @@ import React, { Component, Fragment, useState } from 'react';
 import LoginButton from './LoginButton.jsx';
 import UserInput from './UserInput.jsx';
 
-class LoginPage extends Component {
-  render() {
-    return (
-      <section id='loginPageBox'>
-        <UserInput authorize={this.props.authorize} />
+const LoginPage = ({onLogin}) => {
+  return (
+    <section id="loginPageBox">
+      <section id="outterLoginBox">
+        <div id="timemate">TimeMate</div>
+        <section id="loginBox">
+          <input
+            id="username"
+            type="text"
+            htmlFor="username"
+            placeholder="username"
+          ></input>
+          <input
+            id="password"
+            type="password"
+            htmlFor="password"
+            placeholder="password"
+          ></input>
+          <button onClick={onLogin} id="loginButton">
+            Login
+          </button>
+        </section>
       </section>
-    );
-  }
-}
+    </section>
+  );
+};
 
 export default LoginPage;
-
-// class LoginPage extends Component {
-//     render() {
-//       return (
-//         //   <section id='outterLoginPageBox'>
-
-//         <section id='loginPageBox'></section>
-//           <UserInput authorize={this.props.authorize} />
-//         {/* // }; */}
-// {/* //   return ( */}
-//   <section id='outterLoginPageBox'>
-//     <section id='loginPageBox'>
-//       <section id='outterLoginBox'>
-//         <div id='timemate'>TimeMate</div>
-//         <section id='loginBox'>
-//           <form onSubmit={handleSubmit} style={{ width: '300px' }}>
-//             <input
-//               id='username'
-//               type='text'
-//               htmlFor='username'
-//               placeholder='username'
-//               value={username}
-//               onChange={(e) => setUserName(e.target.value)}
-//             />
-//             <input
-//               id='password'
-//               type='password'
-//               htmlFor='password'
-//               placeholder='password'
-//               value={password}
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//             <LoginButton />
-//           </form>
-//         </section>
-//         </section>
-//         </section>
-//         </section>
-//   );
-// };
 
 /*
 // const LoginPage = ({ onLogin }) => {
