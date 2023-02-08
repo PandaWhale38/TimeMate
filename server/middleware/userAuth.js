@@ -8,6 +8,7 @@ const Logins = db.logins;
 //this is to avoid having two users with the same username and email
 const repeatUserCheck = async (req, res, next) => {
   //search the database to see if user exist
+  console.log('hello from repeat user check')
   try {
     //checking if username already exists
     const usernameExists = await Logins.findOne({
@@ -22,7 +23,7 @@ const repeatUserCheck = async (req, res, next) => {
 
     return next();
   } catch (error) {
-    console.log(error);
+    console.log({ error });
   }
 };
 
