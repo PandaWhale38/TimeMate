@@ -1,24 +1,37 @@
 import React, { Component, useState, useEffect, Fragment } from 'react';
-import LoginPage from './Components/LoginPage.jsx';
-import RoleBased from './Components/RoleBased.jsx';
-import EmployeePage from './Components/EmployeePage.jsx';
 import './public/styles.css';
-import ManagerPage from './Components/ManagerPage.jsx';
+import LoginPage from './Pages/LoginPage.jsx';
+// import RoleBased from './Components/RoleBased.jsx';
+import EmployeePage from './Pages/EmployeePage.jsx';
+import ManagerSignup from './Pages/ManagerSignup.jsx';
+import ManagerPage from './Pages/ManagerPage.jsx';
+import Navbar from './Components/Navbar.jsx';
+import { Routes, Route } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 
 //refactored
 const App = () => {
   const [authenticated, setAuthenticated] = useState(true);
   const [user, setUser] = useState({
-    role: 'worker',
-    id: '',
+    Success: 'Manager',
+    emp_id: '',
     first_name: '',
   });
   const [loginFailed, setLoginFailed] = useState(false);
+  const navigate = useNavigate();
+  let location = useLocation();
 
+  
   const handleLogout = () => {
     console.log('logged out');
     setAuthenticated(false);
-  }
+    setUser({
+      Success: '',
+      emp_id: '',
+      first_name: '',
+    });
+    navigate('/');
+  };
 
   const handleLogin = async ({ username, password }) => {
     try {
@@ -32,111 +45,77 @@ const App = () => {
         body: JSON.stringify(body),
       });
       const json = await response.json();
+      // const {Success,emp_id,first_name} =json;
+
       if (response.ok) {
-        setUser(json);
+        setUser({
+          Success: json.Success,
+          emp_id: json.emp_id,
+          first_name: json.first_name,
+        });
         setAuthenticated(true);
+
+        console.log(authenticated);
+
+        console.log('user', user);
       } else {
         setLoginFailed(true);
+        console.log('loginFailed', loginFailed);
       }
     } catch (err) {
       console.log(err);
     }
   };
+  useEffect(() => {
+    if (authenticated && location.pathname === '/') {
+      user.Success === 'Manager' ? navigate('/manager') : navigate('/worker');
+     
+    }
+  }, [authenticated, user, navigate]);
 
-  return ( 
-    <Fragment>
-      {loginFailed && (
-        // alert, alert-danger are flags for bootstrap to displays the div in an overlay and alert style 
-        <div className='alert alert-danger'> 
-          Login Failed!
-        </div>
-      )}
-      {authenticated ? (<RoleBased user={user} logOut={handleLogout} />):(<LoginPage onLogin={handleLogin} />)}
-    </Fragment>
+
+
+  // console.log('loginFailed',loginFailed,user);
+  // return (
+  //   <Fragment>
+  //     {/* {loginFailed && (
+  //       // alert, alert-danger are flags for bootstrap to displays the div in an overlay and alert style
+  //       <div className='alert alert-danger'>
+  //         Login Failed!
+  //       </div>
+  //     )} */}
+  //     {authenticated ? (
+  //       <RoleBased user={user} logOut={handleLogout} />
+  //     ) : (
+  //       <LoginPage onLogin={handleLogin} loginFailed={loginFailed} />
+  //     )}
+  //   </Fragment>
+  // );
+
+  return (
+    <>
+      <Navbar user={user} authenticated={authenticated} />
+      <>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <LoginPage onLogin={handleLogin} loginFailed={loginFailed} />
+            }
+          />
+          <Route
+            path="/worker"
+            element={<EmployeePage user={user} logOut={handleLogout} />}
+          />
+          <Route
+            path="/manager"
+            element={<ManagerPage user={user} logOut={handleLogout} />}
+          />
+          <Route path="/signup" element={<ManagerSignup user={user} />} />
+        </Routes>
+      </>
+    </>
   );
 };
 
 export default App;
-
-//<LoginPAge onLogin={handleLogin}
-
-// ---------------- ---------------- ------------------ ------------- ----------------- ----------------?*
-/*
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-      role: '',
-      emp_id: '',
-      first_name: '',
-    };
-    this.checkCredentials = this.checkCredentials.bind(this);
-    this.logOut = this.logOut.bind(this);
-  }
-
-  render() {
-    if (this.state.isLoggedIn && this.state.role === 'worker') {
-      return (
-        <EmployeePage
-          firstName={this.state.first_name}
-          empId={this.state.emp_id}
-          logOut={this.logOut}
-          totalHours={this.state.totalHours}
-        />
-      );
-    } else if (this.state.isLoggedIn && this.state.role === 'manager') {
-      return <ManagerPage logOut={this.logOut} />;
-    } else {
-      return <LoginPage authorize={this.checkCredentials} />;
-    }
-  }
-
-  checkCredentials() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.Success === 'Worker') {
-          let emp_id = data.emp_id;
-          let first_name = data.first_name;
-          this.setState({
-            isLoggedIn: true,
-            role: 'worker',
-            emp_id,
-            first_name,
-          });
-        } else if (data.Success === 'Manager') {
-          let emp_id = data.emp_id;
-          let first_name = data.first_name;
-          this.setState({
-            isLoggedIn: true,
-            role: 'manager',
-            emp_id,
-            first_name,
-          });
-        } else if (data.error) {
-          alert('your username/password is incorrect');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  logOut() {
-    console.log('in log out');
-    this.setState({ isLoggedIn: false });
-  }
-}
-
-export default App;
-*/
