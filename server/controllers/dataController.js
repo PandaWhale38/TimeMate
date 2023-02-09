@@ -16,7 +16,7 @@ const getData = async (req, res, next) => {
   console.log('hitting get location data');
   try {
     const { emp_location } = req.body;
-    console.log(emp_location);
+    console.log('empy_location: ', emp_location);
     console.log('reslocalsemplocation', res.locals.emp_location);
     if(emp_location < 1) return next({
       log: 'This is an error in dataController',
