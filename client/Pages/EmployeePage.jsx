@@ -92,6 +92,11 @@ const EmployeePage = ({ user, logOut }) => {
           }),
         });
         const json = await response.json();
+
+        if(!response.ok){
+          throw new Error(json.message.err);
+        }
+
         setEntry_id(json);
       } catch (err) {
         console.log(err);
@@ -108,6 +113,11 @@ const EmployeePage = ({ user, logOut }) => {
           }),
         });
         const data = await response.json();
+
+        if(!response.ok){
+          throw new Error(data.message.err);
+        }
+
         console.log(data);
       } catch (err) {
         console.log(err);
