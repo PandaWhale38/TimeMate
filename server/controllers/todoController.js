@@ -7,19 +7,11 @@ todoController.getTodosFor = async (req, res, next) => {
   // get todo list for employee with given id
   console.log('employee id: ', req.params.id);
   try {
-    // find employee with given id
-    const employee = await employees.findOne({
-      where: {
-        emp_id: req.body.emp_id,
-      },
-    });
-    console.log(employee);
-    // find all todos assigned to that employee
     const foundTodos = await Todos.findAll({
-      where: { assigned_to: req.body.emp_id },
+      where: { assigned_to: req.params.id },
     });
     console.log('todos for employee: ', JSON.stringify(foundTodos));
-    res.locals.todos = foundTodos;
+    res.locals.foundTodos = foundTodos;
     return next();
   } catch (error) {
     return next({
@@ -36,19 +28,12 @@ todoController.getTodosFrom = async (req, res, next) => {
 
   console.log('employee id: ', req.params.id);
   try {
-    // find employee with given id
-    const employee = await employees.findOne({
-      where: {
-        emp_id: req.body.emp_id,
-      },
-    });
-    console.log(employee);
     // find all todos assigned BY that employee
     const foundTodos = await Todos.findAll({
-      where: { assigned_by: req.body.emp_id },
+      where: { assigned_by: req.params.id },
     });
     console.log('todos from manager: ', JSON.stringify(foundTodos));
-    res.locals.todos = foundTodos;
+    res.locals.foundTodos = foundTodos;
     return next();
   } catch (error) {
     return next({
