@@ -1,51 +1,45 @@
-module.exports = (sequelize, DataTypes, types, locations) => {
-  const Employees = sequelize.define(
-    'all_employees',
+module.exports = (sequelize, DataTypes) => {
+  const Todos = sequelize.define(
+    'todos',
     {
-      emp_id: {
+      task_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
       },
-      first_name: {
+      task_title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      last_name: {
+      task_description: {
         type: DataTypes.STRING,
-        allowNull: false,
+      },
+      task_complete: {
+        type: DataTypes.BOOLEAN,
+        default: false,
       },
       // emp_role === 1 is manager; right now, anything else is employee (see employees.controller.js at line 109)
-      emp_role: {
+      assigned_by: {
         type: DataTypes.INTEGER,
         references: {
           // This is a reference to another model
-          model: types,
+          model: employees,
           // This is the column name of the referenced model
-          key: 'role_id',
+          key: 'emp_id',
         },
       },
-      emp_location: {
+      assigned_to: {
         type: DataTypes.INTEGER,
         references: {
           // This is a reference to another model
-          model: locations,
+          model: employees,
           // This is the column name of the referenced model
-          key: 'location_id',
+          key: 'emp_id',
         },
-      },
-      // adding hourly wage for front-end dashboard calculations
-      hourly_wage: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false,
-      },
-      // adding worker task list -- will be a list of objects representing tasks
-      to_do: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
       },
     },
     { timestamps: true }
   );
-  return Employees;
+  return Todos;
 };
