@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import CreateTodoForm from './CreateTodoForm.jsx';
 
-const EmployeeRow = () => {
+const EmployeeRow = ({ user,setTaskSubmitted }) => {
   const [employees, setEmployees] = useState([]);
   //i want to send a fetch request to retrieve the information
   // from the backend to fill in the row dynamically
@@ -12,19 +12,25 @@ const EmployeeRow = () => {
   //   mode: 'cors',
   //   body: JSON.stringify({employee, employeeID, hoursWorked}), //I don't know the names of the properties we want, but we want employee name, ID, and hours Worked
   //   }
+
   useEffect(() => {
-    fetch('http://localhost:8080/emphours/users')
+    fetch(`http://localhost:8080/emphours/users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ emp_location: user.emp_location }),
+    })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log('data', data);
-        setEmployees(data[0]);
+        setEmployees(data);
       })
       .catch((error) => {
         console.log('There is an error in the EmployeeRow get request ', error);
       });
   }, []);
+
   console.log(employees[0]);
   return (
     <div className="justify-self-center">
@@ -34,6 +40,7 @@ const EmployeeRow = () => {
             <th>Name</th>
             <th>Employee id</th>
             <th>Hours Worked</th>
+            <th>Add a Task</th>
           </tr>
         </thead>
         <tbody>
@@ -44,13 +51,12 @@ const EmployeeRow = () => {
               </td>
               <td> {employee.emp_id}</td>
               <td>{employee.hours_worked}</td>
-              {/* adding button to add task for each employee, clicking the button would launch the add task modal */}
-              <td></td>
+              <td><CreateTodoForm assigned_to={employee.emp_id} setTaskSubmitted={setTaskSubmitted} /></td>
             </tr>
           ))}
         </tbody>
       </table>
-      <CreateTodoForm />
+
       {/* <div id='nameContainer'></div>
         <div id='hoursContainer'></div>
         <div id='employeeIdContainer'></div> */}

@@ -3,30 +3,42 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-const CreateTodoForm = () => {
+const CreateTodoForm = ({assigned_to,setTaskSubmitted}) => {
   const [show, setShow] = useState(false);
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
 
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   const handleSubmit = async () => {
-    console.log('task submitted');
+    console.log('task submitted', taskName, taskDescription);
+    const response = await fetch('/todo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({taskName,taskDescription}),
+    });
+    if (response.ok) {
+      setTaskSubmitted(1);
+    } else {
+      setTaskSubmitted(-1);
+    }
   };
-
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+
+      <Button className='add-todo' variant="primary" onClick={handleShow}>
+        +
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create a new Task</Modal.Title>
+      <Modal  show={show} onHide={handleClose}>
+        <Modal.Header className='todo-form' closeButton>
+          <Modal.Title >Create a new Task</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form>
+        <Modal.Body >
+          <Form >
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Task Name</Form.Label>
               <Form.Control
@@ -53,7 +65,7 @@ const CreateTodoForm = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => {handleSubmit(), handleClose()}} >
+          <Button className='add-todo' variant="primary" onClick={() => {handleSubmit(), handleClose()}} >
             Create Task
           </Button>
         </Modal.Footer>

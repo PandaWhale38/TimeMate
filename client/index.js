@@ -7,8 +7,10 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 
 render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById('root')
 );

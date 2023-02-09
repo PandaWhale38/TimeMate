@@ -29,6 +29,7 @@ const App = () => {
       Success: '',
       emp_id: '',
       first_name: '',
+      emp_location: '',
     });
     navigate('/');
   };

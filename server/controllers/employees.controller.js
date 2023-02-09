@@ -126,7 +126,7 @@ const login = async (req, res, next) => {
         Success: 'Manager',
         emp_id: userRole.dataValues.emp_id,
         first_name: userRole.dataValues.first_name,
-        location_id: userRole.dataValues.location_id,
+        emp_location: userRole.dataValues.emp_location,
       });
     } else {
       // user must be an employee
@@ -134,7 +134,7 @@ const login = async (req, res, next) => {
         Success: 'Worker',
         emp_id: userRole.dataValues.emp_id,
         first_name: userRole.dataValues.first_name,
-        location_id: userRole.dataValues.location_id,
+        emp_location: userRole.dataValues.emp_location,
       });
     }
   } catch (e) {
