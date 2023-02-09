@@ -6,6 +6,7 @@ const Timesheet = db.timesheet;
 const clockIn = async (req, res, next) => {
   // const { emp_id } = req.body;
 
+  console.log(req.body);
   const clockInData = {
     emp_id: res.locals.emp_id,
     clock_in: res.locals.timestamp,
@@ -16,6 +17,7 @@ const clockIn = async (req, res, next) => {
     const entry = await Timesheet.create(clockInData);
 
     res.locals.entry_id = entry.dataValues.entry_id;
+    console.log("entry_id", entry.dataValues.entry_id)
 
     console.log(entry);
     if (!entry) {
@@ -24,7 +26,12 @@ const clockIn = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    return next(err);
+    return next({
+      log: 'This is an error in clockin in timesheetController',
+      message: {
+        err: `${err}`,
+      },
+    });
   }
 };
 
