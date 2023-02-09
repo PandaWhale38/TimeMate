@@ -21,6 +21,9 @@ router.post('/add', toDoController.addTodo, (req, res) => {
   res.status(201).json(res.locals.newTodoData);
 });
 
+router.post('/toggle', toDoController.toggle, (req, res) => {
+  res.status(202).send('Task status toggled');
+});
 // when a post request is sent to /todo, delete item from array of todo strings
 router.post('/delete', toDoController.deleteTodo, (req, res) => {
   res.sendStatus(204);

@@ -45,6 +45,31 @@ todoController.getTodosFrom = async (req, res, next) => {
   }
 };
 
+todoController.toggle = async (req, res, next) => {
+  // toggle the status of a to do by its id
+  console.log('hello from toggle: ', req.body);
+  try {
+    // get todo by id
+    const foundTodo = await Todos.findOne({
+      where: { task_id: req.body.task_id },
+    });
+    console.log(foundTodo.task_complete);
+    // make the task complete true if it was false or null; if it was true, make it false
+    const newTaskStatus =
+      foundTodo.task_complete !== null ? !foundTodo.task_complete : true;
+    await Todos.update(
+      { task_complete: newTaskStatus },
+      {
+        where: { task_id: foundTodo.task_id },
+      }
+    );
+    return next();
+  } catch (err) {
+    console.log('error from toggle');
+    return next({ err });
+  }
+};
+
 todoController.deleteTodo = async (req, res, next) => {
   // delete a todo by its id
   console.log(req.body);

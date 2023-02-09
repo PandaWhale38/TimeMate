@@ -15,15 +15,18 @@ const getAll = (req, res, next) => {
   console.log('empl_location is received on query', emp_location);
 
   sequelize
-    .query(`SELECT  ts.emp_id, ae.first_name, ae.last_name, ae.hourly_wage, SUM(hours) as hours_worked 
+    .query(
+      `SELECT  ts.emp_id, ae.first_name, ae.last_name, ae.hourly_wage, SUM(hours) as hours_worked 
     FROM timesheets as ts 
     INNER JOIN all_employees AS ae ON ts.emp_id=ae.emp_id
     WHERE ae.emp_location = ${emp_location}
-    GROUP BY ae.first_name, ts.emp_id, ae.last_name, ae.hourly_wage;`)
-    
+    GROUP BY ae.first_name, ts.emp_id, ae.last_name, ae.hourly_wage;`
+    )
+
     .then((response) => {
       console.log('response', response[0]);
       res.locals.employees = response[0];
+
       next();
     })
     .catch((error) => {
