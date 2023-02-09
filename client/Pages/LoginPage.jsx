@@ -14,7 +14,7 @@ const LoginPage = ({ onLogin, loginFailed }) => {
       {loginFailed && <div className="alert alert-danger">Login Failed!</div>}
       <section id="loginPageBox">
         <section id="outterLoginBox">
-          <div id="timemate">TimeMate</div>
+          {/* <div id="timemate">TimeMate</div> */}
           <section id="loginBox">
             <input
               onChange={(e) => setUsername(e.target.value)}

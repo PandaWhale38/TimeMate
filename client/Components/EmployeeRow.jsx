@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import CreateTodoForm from './CreateTodoForm.jsx';
 
-const EmployeeRow = ({ user, setTaskSubmitted }) => {
+const EmployeeRow = ({ user, setTaskSubmitted, setDataArr }) => {
   const [employees, setEmployees] = useState([]);
   //i want to send a fetch request to retrieve the information
   // from the backend to fill in the row dynamically
@@ -25,6 +25,7 @@ const EmployeeRow = ({ user, setTaskSubmitted }) => {
       .then((data) => {
         console.log('data', data);
         setEmployees(data);
+        setDataArr(data);
       })
       .catch((error) => {
         console.log('There is an error in the EmployeeRow get request ', error);

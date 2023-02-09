@@ -48,7 +48,7 @@ const TaskCard = ({ user, task, handleFetch }) => {
 
   return (
     <>
-    <style type="text/css">
+      <style type="text/css">
         {`
         .btn-complete {
           background-color: red;
@@ -61,41 +61,68 @@ const TaskCard = ({ user, task, handleFetch }) => {
         }
         `}
       </style>
-    <Col>
-      <Card
-        style={task_complete?{ backgroundColor: 'lightgreen',border: 'lightgreen', width: '18rem'}:{ backgroundColor: 'PeachPuff',border: 'PeachPuff', width: '18rem'}}
-        className="mb-2 task-card"
-      >
-        <Card.Body>
-          <Card.Title style={task_complete?{ color:'darkgreen'}:{ color:'coral'}}>{task_title}</Card.Title>
-          <Card.Text>{task_description}</Card.Text>
-          {user.Success === 'Worker' && (
-            <Button
-              style={task_complete?{ backgroundColor: 'darkgreen',border: 'darkgreen'}:{ backgroundColor: 'coral',border: 'coral'}}
-              className="modify-task"
-              onClick={() => {
-                toggle();
-                handleFetch();
-              }}
-              variant="primary"
+      <Col>
+        <Card
+          style={
+            task_complete
+              ? {
+                  backgroundColor: 'lightgreen',
+                  border: 'lightgreen',
+                  width: '18rem',
+                }
+              : {
+                  backgroundColor: 'PeachPuff',
+                  border: 'PeachPuff',
+                  width: '18rem',
+                }
+          }
+          className="mb-2 task-card"
+        >
+          <Card.Body>
+            <Card.Title
+              style={
+                task_complete ? { color: 'darkgreen' } : { color: 'coral' }
+              }
             >
-              {task_complete ? 'Mark as Incomplete' : 'Mark as Complete'}
-            </Button>
-          )}
-          {user.Success === 'Manager' && (
-            <Button
-              className="modify-task"
-              onClick={() => {
-                handleDelete();
-              }}
-              variant="primary"
-            >
-              Delete this Task
-            </Button>
-          )}
-        </Card.Body>
-      </Card>
-    </Col>
+              {task_title}
+            </Card.Title>
+            <Card.Text>{task_description}</Card.Text>
+            {user.Success === 'Worker' && (
+              <Button
+                style={
+                  task_complete
+                    ? { backgroundColor: 'darkgreen', border: 'darkgreen' }
+                    : { backgroundColor: 'coral', border: 'coral' }
+                }
+                className="modify-task"
+                onClick={() => {
+                  toggle();
+                  handleFetch();
+                }}
+                variant="primary"
+              >
+                {task_complete ? 'Mark as Incomplete' : 'Mark as Complete'}
+              </Button>
+            )}
+            {user.Success === 'Manager' && (
+              <Button
+                style={
+                  task_complete
+                    ? { backgroundColor: 'darkgreen', border: 'darkgreen' }
+                    : { backgroundColor: 'coral', border: 'coral' }
+                }
+                className="modify-task"
+                onClick={() => {
+                  handleDelete();
+                }}
+                variant="primary"
+              >
+                Delete this Task
+              </Button>
+            )}
+          </Card.Body>
+        </Card>
+      </Col>
     </>
   );
 };

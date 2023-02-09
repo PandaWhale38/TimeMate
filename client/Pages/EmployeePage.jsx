@@ -9,6 +9,12 @@ const EmployeePage = ({ user, logOut }) => {
   const [message, setMessage] = useState('');
   const [entry_id, setEntry_id] = useState('');
   const [totalHours, setTotalHours] = useState('35');
+  const location =
+    user.emp_location === 1
+      ? 'Knoxville'
+      : user.emp_location === 2
+      ? 'Boston'
+      : 'Ecuador';
 
   useEffect(() => {
     fetchHours();
@@ -93,7 +99,7 @@ const EmployeePage = ({ user, logOut }) => {
         });
         const json = await response.json();
 
-        if(!response.ok){
+        if (!response.ok) {
           throw new Error(json.message.err);
         }
 
@@ -114,7 +120,7 @@ const EmployeePage = ({ user, logOut }) => {
         });
         const data = await response.json();
 
-        if(!response.ok){
+        if (!response.ok) {
           throw new Error(data.message.err);
         }
 
@@ -128,7 +134,8 @@ const EmployeePage = ({ user, logOut }) => {
   //return
   return (
     <section id="employeePageBox">
-      <section id="welcomeMessage">Hello, {user.first_name}</section>
+      <section id="managerTimeMate">Hello, {user.first_name}</section>
+      <h3 id="manageLocation">{location}</h3>
       <section id="hoursWorked">
         You've worked {totalHours} hours this week
       </section>
