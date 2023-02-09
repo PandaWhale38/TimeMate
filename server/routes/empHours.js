@@ -11,4 +11,7 @@ router.get('/', getDate, (req, res) => {});
 router.post('/users', employeesMiddle.getAll, (req, res) => {
   res.status(200).json(res.locals.employees);
 });
+
+//why is get all a post req 
+
 module.exports = router;

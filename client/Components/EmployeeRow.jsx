@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
+import CreateTodoForm from './CreateTodoForm.jsx';
 
 const EmployeeRow = () => {
   const [employees, setEmployees] = useState([]);
@@ -43,10 +44,13 @@ const EmployeeRow = () => {
               </td>
               <td> {employee.emp_id}</td>
               <td>{employee.hours_worked}</td>
+              {/* adding button to add task for each employee, clicking the button would launch the add task modal */}
+              <td></td>
             </tr>
           ))}
         </tbody>
       </table>
+      <CreateTodoForm />
       {/* <div id='nameContainer'></div>
         <div id='hoursContainer'></div>
         <div id='employeeIdContainer'></div> */}
