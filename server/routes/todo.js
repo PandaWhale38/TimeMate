@@ -2,19 +2,28 @@ const express = require('express');
 const router = express.Router();
 const toDoController = require('../controllers/todoController');
 
-// when a get request is sent to /todo, return array of todo strings
-router.get('/', toDoController.getTodos, (req, res) => {
-  res.status(200).json(res.body.toDoList);
+// get all to dos assigned TO an employee
+// id parameter is employee id
+router.get('/foremployee/:id', toDoController.getTodosFor, (req, res) => {
+  res.status(200).json(res.body.todos);
+});
+
+// get all to dos assigned BY a manager
+// id parameter is manager id
+router.get('/frommanager/:id', toDoController.getTodosFrom, (req, res) => {
+  res.status(200).json(res.body.todos);
 });
 
 // // when a post request is sent to /todo, add to array of todo objects {task:String, complete:Bool}
 // router.post('/todo');
-router.post('/', toDoController.addTodo, (req, res) => {
-  res.status(201).json(res.locals.newTodoList);
+
+router.post('/add', toDoController.addTodo, (req, res) => {
+  res.status(201).json(res.locals.newTodoData);
 });
 
-// router.post()
-// // when a post request is sent to /todo, delete item from array of todo strings
-// router.post('/todo/delete');
+// when a post request is sent to /todo, delete item from array of todo strings
+router.post('/delete', toDoController.deleteTodo, (req, res) => {
+  res.sendStatus(204);
+});
 
 module.exports = router;

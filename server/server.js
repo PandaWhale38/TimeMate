@@ -18,7 +18,7 @@ const allEmployeeRouter = require('./routes/allemployees');
 const getCurrentHours = require('./controllers/currentEmpHoursController.js');
 const deactivateUser = require('./controllers/deactivateUserController.js');
 const dataRouter = require('./routes/data');
-// const todoRouter = require('./routes/todo');
+const todoRouter = require('./routes/todo');
 
 //synchronizing the database and forcing it to false so we dont lose data
 // db.sequelize.sync().then(() => {
@@ -33,7 +33,7 @@ app.use('/', loginRouter);
 app.use('/clockin', clockinRouter);
 app.use('/clockout', clockOutRouter);
 app.use('/emphours', empHoursRouter);
-// app.use('/todo', todoRouter);
+app.use('/todo', todoRouter);
 app.use('/data', dataRouter);
 
 app.post('/currentemphours', getCurrentHours, (req, res) => {

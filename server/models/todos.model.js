@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes, employees) => {
   const Todos = sequelize.define(
     'todos',
     {
@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         default: false,
       },
-      // emp_role === 1 is manager; right now, anything else is employee (see employees.controller.js at line 109)
       assigned_by: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
           // This is a reference to another model
           model: employees,
@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       assigned_to: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
           // This is a reference to another model
           model: employees,
