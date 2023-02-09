@@ -176,6 +176,19 @@ input {
   margin-top: 10%;
 }
 
+.add-todo {
+  background-color:coral;
+  border: coral;
+}
+
+.add-todo:hover {
+  background-color: rgb(233, 198, 145);
+}
+
+.todo-form {
+  background-color:  rgb(233, 198, 145);
+}
+
 #employeePageBox {
   display: flex;
   justify-content: center;

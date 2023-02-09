@@ -7,21 +7,21 @@ import ManagerSignup from './Pages/ManagerSignup.jsx';
 import ManagerPage from './Pages/ManagerPage.jsx';
 import Navbar from './Components/Navbar.jsx';
 import { Routes, Route } from 'react-router-dom';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 //refactored
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({
-    Success: 'Manager',
+    Success: '',
     emp_id: '',
     first_name: '',
+    emp_location: '',
   });
   const [loginFailed, setLoginFailed] = useState(false);
   const navigate = useNavigate();
   let location = useLocation();
 
-  
   const handleLogout = () => {
     console.log('logged out');
     setAuthenticated(false);
@@ -29,6 +29,7 @@ const App = () => {
       Success: '',
       emp_id: '',
       first_name: '',
+      emp_location: '',
     });
     navigate('/');
   };
@@ -52,6 +53,7 @@ const App = () => {
           Success: json.Success,
           emp_id: json.emp_id,
           first_name: json.first_name,
+          emp_location: json.emp_location,
         });
         setAuthenticated(true);
 
@@ -69,28 +71,10 @@ const App = () => {
   useEffect(() => {
     if (authenticated && location.pathname === '/') {
       user.Success === 'Manager' ? navigate('/manager') : navigate('/worker');
-     
     }
   }, [authenticated, user, navigate]);
 
-
-
-  // console.log('loginFailed',loginFailed,user);
-  // return (
-  //   <Fragment>
-  //     {/* {loginFailed && (
-  //       // alert, alert-danger are flags for bootstrap to displays the div in an overlay and alert style
-  //       <div className='alert alert-danger'>
-  //         Login Failed!
-  //       </div>
-  //     )} */}
-  //     {authenticated ? (
-  //       <RoleBased user={user} logOut={handleLogout} />
-  //     ) : (
-  //       <LoginPage onLogin={handleLogin} loginFailed={loginFailed} />
-  //     )}
-  //   </Fragment>
-  // );
+  console.log('user', user);
 
   return (
     <>

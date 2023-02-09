@@ -107,7 +107,7 @@ const EmployeePage = ({ user, logOut }) => {
             entry_id,
           }),
         });
-        const data = await res.json();
+        const data = await response.json();
         console.log(data);
       } catch (err) {
         console.log(err);
