@@ -11,9 +11,9 @@ import { useNavigate,useLocation } from 'react-router-dom';
 
 //refactored
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({
-    Success: 'Manager',
+    Success: '',
     emp_id: '',
     first_name: '',
   });

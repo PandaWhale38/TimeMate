@@ -3,7 +3,7 @@ import LoginButton from '../Components/LoginButton.jsx';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-const ManagerSignup = ({user}) => {
+const ManagerSignup = ({ user }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [first_name, setFirstname] = useState('');
@@ -21,7 +21,7 @@ const ManagerSignup = ({user}) => {
         username,
         password,
         location,
-        emp_role: user.Success==='Worker'?2:1,
+        emp_role: user.Success === 'Manager' ? 2 : 1,
         hourly_wage: 20,
       };
       const response = await fetch('http://localhost:8080/create/create', {
@@ -30,7 +30,8 @@ const ManagerSignup = ({user}) => {
         body: JSON.stringify(body),
       });
       const json = await response.json();
-      console.log('emp role ',body.emp_role);
+      console.log('emp role ', body.emp_role);
+      console.log('location',location);
       if (response.ok) {
         setSignedup(1);
       } else setSignedup(-1);
@@ -81,7 +82,7 @@ const ManagerSignup = ({user}) => {
               htmlFor="password"
               placeholder="password"
             ></input>
-            <div className='selectContainer'>
+            <div className="selectContainer">
               <label className="select">Select location: </label>
               <select
                 className="selection"
