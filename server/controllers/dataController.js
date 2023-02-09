@@ -15,13 +15,27 @@ const Locations = db.locations;
 const getData = async (req, res, next) => {
   console.log('hitting get location data');
   try {
-    const { location_id } = req.body;
-    console.log(location_id);
+    const { emp_location } = req.body;
+    console.log(emp_location);
+    console.log('reslocalsemplocation', res.locals.emp_location);
+    if(emp_location < 1) return next({
+      log: 'This is an error in dataController',
+      message: {
+        err: `Invalid location.`,
+      },
+    });
     const locationData = await Locations.findOne({
-      where: { location_id },
+      where: { location_id: emp_location },
+    });
+    if(!locationData) return next({
+      log: 'This is an error in dataController',
+      message: {
+        err: `Error getting location data.`,
+      },
     });
     console.log('location data:', locationData);
-    const employeeTable = res.locals.employee;
+    const employeeTable = res.locals.employees;
+    console.log('employeeTable', employeeTable);
     let totalSpent = 0;
     for (const employee of employeeTable) {
       let employeeCost = employee.hourly_wage * employee.hours_worked;

@@ -11,6 +11,7 @@ const getAll = (req, res, next) => {
   //   return next({err})
   // }
   const { emp_location } = req.body;
+  res.locals.emp_location = emp_location;
   console.log('empl_location is received on query', emp_location);
 
   sequelize
@@ -21,6 +22,7 @@ const getAll = (req, res, next) => {
     GROUP BY ae.first_name, ts.emp_id, ae.last_name, ae.hourly_wage;`)
     
     .then((response) => {
+      console.log('response', response[0]);
       res.locals.employees = response[0];
       next();
     })
