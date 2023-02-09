@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router';
-import { Button } from 'bootstrap';
+// import { Button } from 'bootstrap';
+import Button from 'react-bootstrap/Button';
 
 const Navbar = ({ user, authenticated }) => {
   return (
@@ -17,42 +18,42 @@ const Navbar = ({ user, authenticated }) => {
             : '/'
         }
       >
-        TimeMate
+        <h2 id="timeMate">TimeMate</h2>
       </Link>
-      <div>
-      {!authenticated && (
-        <Link to="/">
-          <button>Login</button>
-        </Link>
-      )}
-      {!authenticated && (
-        <Link to="/signup">
-          <button>Signup</button>
-        </Link>
-      )}
-        {(authenticated && user.Success === 'Worker') && (
-          <>
-          <Link to="/worker">
-            <button>Main Page</button>
-            </Link>
-          <Link to="/tasks">
-            <button>Task Page</button>
+      <div className="buttonContainer">
+        {!authenticated && (
+          <Link className="navbutton" to="/">
+            <Button>Login</Button>
           </Link>
+        )}
+        {!authenticated && (
+          <Link className="navbutton" to="/signup">
+            <Button>Signup</Button>
+          </Link>
+        )}
+        {authenticated && user.Success === 'Worker' && (
+          <>
+            <Link className="navbutton" to="/worker">
+              <Button>Main Page</Button>
+            </Link>
+            <Link className="navbutton" to="/tasks">
+              <Button>Task Page</Button>
+            </Link>
           </>
         )}
-        {(authenticated && user.Success === 'Manager') && (
+        {authenticated && user.Success === 'Manager' && (
           <>
-        <Link to="/signup">
-          <button>Signup Employee</button>
-        </Link>
-        <Link to="/dashboard">
-          <button>Dashboard</button>
-        </Link>
-        <Link to="/tasks">
-          <button>Task Page</button>
-        </Link>
+            <Link className="navbutton" to="/signup">
+              <Button>Signup Employee</Button>
+            </Link>
+            <Link className="navbutton" to="/manager">
+              <Button>Dashboard</Button>
+            </Link>
+            <Link className="navbutton" to="/tasks">
+              <Button>Task Page</Button>
+            </Link>
           </>
-      )}
+        )}
       </div>
     </div>
   );

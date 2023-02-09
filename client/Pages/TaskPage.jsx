@@ -35,7 +35,7 @@ const TaskPage = ({ user }) => {
 //tasks.sort((a,b)=>a.task_complete-b.task_complete)
   return (
     <div className="taskContainer">
-          <Row xs={1} md={2} className="g-4">
+      <Row style={{ margin: 24 }} xs={1} md={2} className="g-4">
         {tasks.sort((a,b)=>a.task_complete-b.task_complete).map(task => <TaskCard key={task.task_id} user={user} task={task} handleFetch={handleFetch} />)}
         </Row>
     </div>
