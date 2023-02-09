@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import CreateTodoForm from './CreateTodoForm.jsx';
 
-const EmployeeRow = ({ user,setTaskSubmitted }) => {
+const EmployeeRow = ({ user, setTaskSubmitted }) => {
   const [employees, setEmployees] = useState([]);
   //i want to send a fetch request to retrieve the information
   // from the backend to fill in the row dynamically
@@ -30,7 +30,7 @@ const EmployeeRow = ({ user,setTaskSubmitted }) => {
         console.log('There is an error in the EmployeeRow get request ', error);
       });
   }, []);
-  console.log('location',user.emp_location);
+  console.log('location', user.emp_location);
   console.log(employees[0]);
   return (
     <div className="justify-self-center">
@@ -53,7 +53,12 @@ const EmployeeRow = ({ user,setTaskSubmitted }) => {
               <td> {employee.emp_id}</td>
               <td>{employee.hours_worked}</td>
               <td>{employee.hourly_wage}</td>
-              <td><CreateTodoForm assigned_to={employee.emp_id} setTaskSubmitted={setTaskSubmitted} /></td>
+              <td>
+                <CreateTodoForm
+                  assigned_to={employee.emp_id}
+                  setTaskSubmitted={setTaskSubmitted}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
