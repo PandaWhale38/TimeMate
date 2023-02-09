@@ -55,6 +55,7 @@ const EmployeeRow = ({ user, setTaskSubmitted }) => {
               <td>{employee.hourly_wage}</td>
               <td>
                 <CreateTodoForm
+                  assigned_by={user.emp_id}
                   assigned_to={employee.emp_id}
                   setTaskSubmitted={setTaskSubmitted}
                 />

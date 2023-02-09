@@ -5,6 +5,7 @@ import LoginPage from './Pages/LoginPage.jsx';
 import EmployeePage from './Pages/EmployeePage.jsx';
 import ManagerSignup from './Pages/ManagerSignup.jsx';
 import ManagerPage from './Pages/ManagerPage.jsx';
+import TaskPage from './Pages/TaskPage.jsx';
 import Navbar from './Components/Navbar.jsx';
 import { Routes, Route } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -68,6 +69,7 @@ const App = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     if (authenticated && location.pathname === '/') {
       user.Success === 'Manager' ? navigate('/manager') : navigate('/worker');
@@ -95,7 +97,14 @@ const App = () => {
             path="/manager"
             element={<ManagerPage user={user} logOut={handleLogout} />}
           />
-          <Route path="/signup" element={<ManagerSignup user={user} />} />
+          <Route
+            path="/signup"
+            element={<ManagerSignup user={user} />}
+          />
+          <Route
+            path="/tasks"
+            element={<TaskPage user={user} />}
+          />
         </Routes>
       </>
     </>

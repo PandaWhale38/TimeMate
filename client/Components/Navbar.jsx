@@ -30,20 +30,28 @@ const Navbar = ({ user, authenticated }) => {
           <button>Signup</button>
         </Link>
       )}
-      {(authenticated && user.Success === 'Worker') && (
-        <Link to="/worker">
-          <button>Main Page</button>
-        </Link>
-      )}
-      {(authenticated && user.Success === 'Manager') && (
+        {(authenticated && user.Success === 'Worker') && (
+          <>
+          <Link to="/worker">
+            <button>Main Page</button>
+            </Link>
+          <Link to="/tasks">
+            <button>Task Page</button>
+          </Link>
+          </>
+        )}
+        {(authenticated && user.Success === 'Manager') && (
+          <>
         <Link to="/signup">
           <button>Signup Employee</button>
         </Link>
-        )}
-      {(authenticated && user.Success === 'Manager') && (
         <Link to="/dashboard">
           <button>Dashboard</button>
         </Link>
+        <Link to="/tasks">
+          <button>Task Page</button>
+        </Link>
+          </>
       )}
       </div>
     </div>
