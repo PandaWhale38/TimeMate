@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import EmployeeRow from '../Components/EmployeeRow.jsx';
 import deleteButton from '../Components/deleteButton.jsx';
 import LogOutButton from '../Components/logOutButton.jsx';
+import PieChart from '../Components/PieChart.jsx';
 
 const ManagerPage = ({ logOut, user }) => {
   const [taskSubmitted, setTaskSubmitted] = useState(0);
@@ -27,8 +28,12 @@ const ManagerPage = ({ logOut, user }) => {
       <EmployeeRow user={user} setTaskSubmitted={setTaskSubmitted} />
       {/* </table> */}
       {/* <deleteButton /> */}
-      <section id="managerLogOut">
-        <LogOutButton logOut={logOut} />
+      
+      
+     
+      <section className="d-flex flex-column align-items-center" id="managerLogOut">
+        <PieChart user={user}/>
+        <LogOutButton  logOut={logOut} />
       </section>
     </section>
   );
