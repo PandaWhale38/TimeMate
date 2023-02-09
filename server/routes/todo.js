@@ -17,7 +17,7 @@ router.get('/frommanager/:id', toDoController.getTodosFrom, (req, res) => {
 // // when a post request is sent to /todo, add to array of todo objects {task:String, complete:Bool}
 // router.post('/todo');
 
-router.post('/', toDoController.addTodo, (req, res) => {
+router.post('/add', toDoController.addTodo, (req, res) => {
   res.status(201).json(res.locals.newTodoData);
 });
 

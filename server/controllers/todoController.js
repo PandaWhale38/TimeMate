@@ -1,6 +1,6 @@
 const { employees } = require('../db');
 const db = require('../db');
-
+const Todos = db.todos;
 const todoController = {};
 
 todoController.getTodosFor = async (req, res, next) => {
@@ -15,11 +15,11 @@ todoController.getTodosFor = async (req, res, next) => {
     });
     console.log(employee);
     // find all todos assigned to that employee
-    const todos = await todos.findAll({
+    const foundTodos = await Todos.findAll({
       where: { assigned_to: req.body.emp_id },
     });
-    console.log('todos for employee: ', JSON.stringify(todos));
-    res.locals.todos = todos;
+    console.log('todos for employee: ', JSON.stringify(foundTodos));
+    res.locals.todos = foundTodos;
     return next();
   } catch (error) {
     return next({
@@ -44,11 +44,11 @@ todoController.getTodosFrom = async (req, res, next) => {
     });
     console.log(employee);
     // find all todos assigned BY that employee
-    const todos = await todos.findAll({
+    const foundTodos = await Todos.findAll({
       where: { assigned_by: req.body.emp_id },
     });
-    console.log('todos from manager: ', JSON.stringify(todos));
-    res.locals.todos = todos;
+    console.log('todos from manager: ', JSON.stringify(foundTodos));
+    res.locals.todos = foundTodos;
     return next();
   } catch (error) {
     return next({
@@ -65,13 +65,13 @@ todoController.deleteTodo = async (req, res, next) => {
   console.log(req.body);
   try {
     await Todos.destroy({
-      where: { task_id: req.body.task_id };
+      where: { task_id: req.body.task_id },
     });
     next();
   } catch (err) {
     next({ err });
   }
-}
+};
 
 todoController.addTodo = async (req, res, next) => {
   // add a todo to employee's list
@@ -84,8 +84,8 @@ todoController.addTodo = async (req, res, next) => {
       assigned_by,
       assigned_to,
     };
-    const todo = await todos.create(newTodoData);
-    res.locals.newTodoData = newTodoData;
+    const todo = await Todos.create(newTodoData);
+    res.locals.newTodoData = todo;
     return next();
   } catch (error) {
     return next({

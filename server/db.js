@@ -49,6 +49,9 @@ db.logins = require('./models/logins.model.js')(
 );
 const logins = db.logins;
 
+db.todos = require('./models/todos.model.js')(sequelize, DataTypes, employees);
+const todos = db.todos;
+
 db.timesheet = require('./models/timesheet.model.js')(
   sequelize,
   DataTypes,
