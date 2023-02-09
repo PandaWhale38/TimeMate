@@ -2,6 +2,7 @@ const db = require('../db');
 
 const getDate = (req, res, next) => {
   const { date, emp_id, time } = req.body;
+  console.log('req.body in get date', req.body);
 
   // const test = new Date(date);
 
@@ -29,6 +30,12 @@ const getDate = (req, res, next) => {
   res.locals.timestamp = date;
   res.locals.emp_id = emp_id;
   res.locals.week = weekNumber;
+
+  console.log('timestamp', date);
+  console.log('emp_id', emp_id);
+  console.log('week', weekNumber);
+
+
 
   // console.log('weekNumber', weekNumber);
 
