@@ -25,8 +25,7 @@ const TaskCard = ({ user, task, handleFetch }) => {
       headers: { 'Content-Type': 'application/json' },
       body:JSON.stringify({task_id})
     })
-    const json = await response.json();
-    console.log(json);
+    console.log('response',response.ok);
     if (response.ok) {
       handleFetch();
     }
@@ -48,8 +47,8 @@ const TaskCard = ({ user, task, handleFetch }) => {
         <Card.Text>
           {task_description}
         </Card.Text>
-          {(user.Success === 'Worker') && <Button onClick={() => { toggle(); handleFetch(); }} variant="primary">Mark As Completed</Button>}
-          {(user.Success === 'Manager') && <Button onClick={() => { handleDelete() }} variant="primary">Delete this Task</Button>}
+          {(user.Success === 'Worker') && <Button className="modify-task" onClick={() => { toggle(); handleFetch(); }} variant="primary">Mark As Completed</Button>}
+          {(user.Success === 'Manager') && <Button className="modify-task" onClick={() => { handleDelete() }} variant="primary">Delete this Task</Button>}
       </Card.Body>
       </Card>
       </Col>

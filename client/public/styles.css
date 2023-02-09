@@ -189,8 +189,15 @@ input {
   background-color:  rgb(233, 198, 145);
 }
 
-.task-card {
-  background-color:  rgb(233, 198, 145);
+.card-body {
+  background-color:  rgb(235, 210, 174);
+  border: none;
+}
+
+.modify-task {
+  background-color:  coral;
+  border: none;
+
 }
 
 #employeePageBox {
