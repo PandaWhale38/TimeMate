@@ -14,14 +14,12 @@ const getAll = (req, res, next) => {
   console.log('empl_location is received on query', emp_location);
 
   sequelize
-    .query('SELECT * FROM all_employees')
-    // SELECT  ts.emp_id, ae.first_name, ae.last_name, ae.hourly_wage, SUM(hours) as hours_worked
-    // FROM timesheets as ts
-    // INNER JOIN all_employees AS ae ON ts.emp_id=ae.emp_id
-    // GROUP BY ae.first_name, ts.emp_id, ae.last_name, ae.hourly_wage;`
-    //  WHERE ae.emp_location = ${req.body.location_id}
-    // WHERE ae.location_id = req.location_id
-    // WHERE emp_location = ${emp_location}
+    .query(`SELECT  ts.emp_id, ae.first_name, ae.last_name, ae.hourly_wage, SUM(hours) as hours_worked 
+    FROM timesheets as ts 
+    INNER JOIN all_employees AS ae ON ts.emp_id=ae.emp_id
+    WHERE ae.emp_location = ${emp_location}
+    GROUP BY ae.first_name, ts.emp_id, ae.last_name, ae.hourly_wage;`)
+    
     .then((response) => {
       res.locals.employees = response[0];
       next();

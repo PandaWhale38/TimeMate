@@ -30,7 +30,7 @@ const EmployeeRow = ({ user,setTaskSubmitted }) => {
         console.log('There is an error in the EmployeeRow get request ', error);
       });
   }, []);
-
+  console.log('location',user.emp_location);
   console.log(employees[0]);
   return (
     <div className="justify-self-center">
@@ -40,6 +40,7 @@ const EmployeeRow = ({ user,setTaskSubmitted }) => {
             <th>Name</th>
             <th>Employee id</th>
             <th>Hours Worked</th>
+            <th>Hourly Wage</th>
             <th>Add a Task</th>
           </tr>
         </thead>
@@ -51,6 +52,7 @@ const EmployeeRow = ({ user,setTaskSubmitted }) => {
               </td>
               <td> {employee.emp_id}</td>
               <td>{employee.hours_worked}</td>
+              <td>{employee.hourly_wage}</td>
               <td><CreateTodoForm assigned_to={employee.emp_id} setTaskSubmitted={setTaskSubmitted} /></td>
             </tr>
           ))}
