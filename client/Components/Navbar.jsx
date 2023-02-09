@@ -52,6 +52,7 @@ const Navbar = ({ user, authenticated }) => {
             <Link className="navbutton" to="/tasks">
               <Button>Task Page</Button>
             </Link>
+            
           </>
         )}
       </div>
