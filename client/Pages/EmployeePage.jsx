@@ -22,7 +22,7 @@ const EmployeePage = ({ user, logOut }) => {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
-        body: JSON.stringify({ emp_id: user.id }),
+        body: JSON.stringify({ emp_id: user.emp_id }),
       });
       const json = await response.json();
       setTotalHours(json.total);
@@ -88,7 +88,7 @@ const EmployeePage = ({ user, logOut }) => {
           body: JSON.stringify({
             time: time,
             date: date,
-            emp_id: user.id,
+            emp_id: user.emp_id,
           }),
         });
         const json = await response.json();
