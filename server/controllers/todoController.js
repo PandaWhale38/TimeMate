@@ -7,19 +7,11 @@ todoController.getTodosFor = async (req, res, next) => {
   // get todo list for employee with given id
   console.log('employee id: ', req.params.id);
   try {
-    // find employee with given id
-    const employee = await employees.findOne({
-      where: {
-        emp_id: req.body.emp_id,
-      },
-    });
-    console.log(employee);
-    // find all todos assigned to that employee
     const foundTodos = await Todos.findAll({
-      where: { assigned_to: req.body.emp_id },
+      where: { assigned_to: req.params.id },
     });
     console.log('todos for employee: ', JSON.stringify(foundTodos));
-    res.locals.todos = foundTodos;
+    res.locals.foundTodos = foundTodos;
     return next();
   } catch (error) {
     return next({
@@ -36,19 +28,12 @@ todoController.getTodosFrom = async (req, res, next) => {
 
   console.log('employee id: ', req.params.id);
   try {
-    // find employee with given id
-    const employee = await employees.findOne({
-      where: {
-        emp_id: req.body.emp_id,
-      },
-    });
-    console.log(employee);
     // find all todos assigned BY that employee
     const foundTodos = await Todos.findAll({
-      where: { assigned_by: req.body.emp_id },
+      where: { assigned_by: req.params.id },
     });
     console.log('todos from manager: ', JSON.stringify(foundTodos));
-    res.locals.todos = foundTodos;
+    res.locals.foundTodos = foundTodos;
     return next();
   } catch (error) {
     return next({
@@ -57,6 +42,31 @@ todoController.getTodosFrom = async (req, res, next) => {
         err: `${error}`,
       },
     });
+  }
+};
+
+todoController.toggle = async (req, res, next) => {
+  // toggle the status of a to do by its id
+  console.log('hello from toggle: ', req.body);
+  try {
+    // get todo by id
+    const foundTodo = await Todos.findOne({
+      where: { task_id: req.body.task_id },
+    });
+    console.log(foundTodo.task_complete);
+    // make the task complete true if it was false or null; if it was true, make it false
+    const newTaskStatus =
+      foundTodo.task_complete !== null ? !foundTodo.task_complete : true;
+    await Todos.update(
+      { task_complete: newTaskStatus },
+      {
+        where: { task_id: foundTodo.task_id },
+      }
+    );
+    return next();
+  } catch (err) {
+    console.log('error from toggle');
+    return next({ err });
   }
 };
 

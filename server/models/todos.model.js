@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes, employees) => {
       },
       task_complete: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
       },
       assigned_by: {
         type: DataTypes.INTEGER,
