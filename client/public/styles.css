@@ -189,6 +189,10 @@ input {
   background-color:  rgb(233, 198, 145);
 }
 
+.task-card {
+  background-color:  rgb(233, 198, 145);
+}
+
 #employeePageBox {
   display: flex;
   justify-content: center;
