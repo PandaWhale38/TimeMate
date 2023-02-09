@@ -128,7 +128,7 @@ const EmployeePage = ({ user, logOut }) => {
   //return
   return (
     <section id="employeePageBox">
-      <section id="welcomeMessage">Hello, {user.firstName}</section>
+      <section id="welcomeMessage">Hello, {user.first_name}</section>
       <section id="hoursWorked">
         You've worked {totalHours} hours this week
       </section>

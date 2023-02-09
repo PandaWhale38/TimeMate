@@ -76,14 +76,43 @@ input {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#timeMate {
+  color:coral;
+  text-decoration: none;
+}
+
 #Navbar {
+  height: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   background-color: rgb(253, 215, 158);
 }
 
+.buttonContainer {
+  display: flex;
+  gap: 25px;
+  margin-right: 25px;
+}
+
+.buttonContainer button{
+  background-color: coral;
+  border:coral;
+  text-decoration: none;
+  display: flex;
+  gap: 25px;
+  margin-right: 25px;
+}
+
+.navbutton {
+  text-decoration: none;
+}
+
 #NavbarHome {
+  text-decoration: none;
+  margin-left: 25px;
+  padding-top: 30px;
   display: flex;
   align-self: flex-start;
 }
@@ -189,6 +218,7 @@ input {
   background-color:  rgb(233, 198, 145);
 }
 
+
 #employeePageBox {
   display: flex;
   justify-content: center;
@@ -223,4 +253,15 @@ input {
   margin-top: 15px;
   margin-bottom: 15px;
   font-family: 'Cabin', sans-serif;
+}
+
+/* .classContainer {
+  background-color: green;
+} */
+
+.g-4 {
+  /* background-color: pink; */
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
 }
